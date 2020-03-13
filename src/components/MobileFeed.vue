@@ -41,8 +41,6 @@
           <div class="feed-content">
             <div class="feed-content-userId">
               <p class="userId">{{ feed.user_id }}</p>
-              <span class="space">|</span>
-              <p>created_at({{ feed.created_at }})</p>
             </div>
 
             <h3>

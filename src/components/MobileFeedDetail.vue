@@ -28,9 +28,6 @@
         <div class="ui divider"></div>
         <h4 class="ui grey header reply">{{ reply.user.name }}</h4>
         <div class="ui divider"></div>
-        <div class="feed-header">
-          <h3>{{ reply.title }}</h3>
-        </div>
         <div class="ui hidden divider"></div>
         <div class="feed-contents">
           <p>{{ reply.contents }}</p>
