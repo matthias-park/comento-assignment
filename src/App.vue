@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="nav ui container">
+      <i class="icon big angle left" id="back" v-if="$route.params.id" @click="goToBack"></i>
+      <span>[박준수] 2020.03.13</span>
+    </div>
+    <div class="ui divider"></div>
     <router-view></router-view>
     <div class="ui container" id="desktop" v-if="!$route.params.id">
       <DesktopFeed></DesktopFeed>
@@ -28,6 +33,7 @@
 <script>
 import DesktopFeed from "./components/DesktopFeed";
 import MobileFeed from "./components/MobileFeed";
+import { router } from "./main";
 
 export default {
   name: "App",
@@ -38,6 +44,9 @@ export default {
   methods: {
     onTop() {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
+    goToBack() {
+      router.push("/");
     }
   }
 };
@@ -51,6 +60,9 @@ div {
   display: none;
   background-color: #f4f5f7;
 }
+#back {
+  display: none;
+}
 
 @media screen and (max-width: 480px) {
   #desktop {
@@ -59,8 +71,19 @@ div {
   #mobile {
     display: flex;
   }
+  #back {
+    display: inline-block;
+    padding-left: 10px;
+  }
 }
 .icon {
   cursor: pointer;
+}
+
+div.nav {
+  padding-top: 0.5em;
+  height: 45px;
+  background-color: white;
+  display: flex;
 }
 </style>

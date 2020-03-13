@@ -1,9 +1,5 @@
 <template>
   <div class="ui">
-    <div class="nav">
-      <i class="icon big angle left" @click="goToBack"></i>
-    </div>
-    <div class="spacer"></div>
     <div class="main-feed">
       <div class="feed-header" id="main-feed-header">
         <h3>{{ getDetail.title }}</h3>
@@ -43,7 +39,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { router } from "../main";
 
 export default {
   name: "MobileFeedDetail",
@@ -57,10 +52,7 @@ export default {
     ...mapGetters(["getDetail"])
   },
   methods: {
-    ...mapActions(["fetchDetail"]),
-    goToBack() {
-      router.push("/");
-    }
+    ...mapActions(["fetchDetail"])
   },
   async created() {
     await this.fetchDetail(this.$route.params.id);
@@ -69,11 +61,6 @@ export default {
 </script>
 
 <style scoped>
-div.nav {
-  padding-top: 0.5em;
-  height: 45px;
-  background-color: white;
-}
 div.main-feed {
   padding: 1em;
   background-color: white;
@@ -90,13 +77,6 @@ div#main-feed-timestamp {
 
 span.coment-number {
   color: #00c854;
-}
-.spacer {
-  position: relative;
-  left: -25px;
-  height: 0.8em;
-  width: 110%;
-  background-color: #f4f5f7;
 }
 
 .feed-timestamp {
