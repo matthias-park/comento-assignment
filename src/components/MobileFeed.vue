@@ -4,17 +4,27 @@
       <div class="filters">
         <div class="order">
           <p @click="updateOrd('asc')">
-            <i class="mini circle icon" :class="getOrd === 'asc' ? 'green' : ''"></i>
+            <i
+              class="mini circle icon"
+              :class="getOrd === 'asc' ? 'green' : ''"
+            ></i>
             오름차순
           </p>
           <p @click="updateOrd('desc')">
-            <i class="mini circle icon" :class="getOrd === 'desc' ? 'green' : ''"></i>
+            <i
+              class="mini circle icon"
+              :class="getOrd === 'desc' ? 'green' : ''"
+            ></i>
             내림차순
           </p>
         </div>
         <div class="filter">
           <a class="ui basic mini button" @click="showModal">필터</a>
-          <MobileFilterModal v-show="isModalVisible" @close="closeModal" @categorySelect="filter" />
+          <MobileFilterModal
+            v-show="isModalVisible"
+            @close="closeModal"
+            @categorySelect="filter"
+          />
         </div>
       </div>
       <div
@@ -22,7 +32,7 @@
         :key="feed.id + Math.random()"
         class="feed-body"
       >
-        <router-link :to="`/mobileFeed/detail/${feed.id}`">
+        <router-link :to="`/feed/detail/${feed.id}`">
           <div class="ui container feed-header">
             <p>{{ findCategory(feed.category_id) }}</p>
             <p>{{ feed.category_id }}</p>
@@ -37,15 +47,25 @@
 
             <h3>
               {{
-              feed.title.length > 30
-              ? feed.title.slice(0, 30) + "..."
-              : feed.title
+                feed.title.length > 30
+                  ? feed.title.slice(0, 30) + "..."
+                  : feed.title
               }}
             </h3>
-            <p>{{ feed.contents.length> 30 ? feed.contents.slice(0,30) + '...' : feed.contents }}</p>
+            <p>
+              {{
+                feed.contents.length > 30
+                  ? feed.contents.slice(0, 30) + "..."
+                  : feed.contents
+              }}
+            </p>
           </div>
         </router-link>
-        <div v-for="(ad, adIndex) in allAds.data" :key="ad.id + Math.random()" class="ad-contents">
+        <div
+          v-for="(ad, adIndex) in allAds.data"
+          :key="ad.id + Math.random()"
+          class="ad-contents"
+        >
           <div v-if="(feedIndex + 1) / 4 === adIndex + 1">
             <div class="spacer"></div>
             <div class="ui items">
@@ -57,11 +77,21 @@
                   <img :src="IMG_ROOT + ad.img" />
                 </div>
                 <div class="content">
-                  <h3
-                    class="header"
-                  >{{ ad.title.length> 60 ? ad.title.slice(0,60) + '...' : ad.title }}</h3>
+                  <h3 class="header">
+                    {{
+                      ad.title.length > 60
+                        ? ad.title.slice(0, 60) + "..."
+                        : ad.title
+                    }}
+                  </h3>
                   <div class="description">
-                    <p>{{ ad.contents.length > 60 ? ad.contents.slice(0,60) + '...' : ad.contents }}</p>
+                    <p>
+                      {{
+                        ad.contents.length > 60
+                          ? ad.contents.slice(0, 60) + "..."
+                          : ad.contents
+                      }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -157,7 +187,7 @@ div.filters {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.1em;
   background-color: white;
   width: 100%;
   height: auto;
@@ -207,5 +237,9 @@ span.space {
   height: 0.8em;
   width: 110%;
   background-color: #f4f5f7;
+}
+
+.filter {
+  z-index: 10;
 }
 </style>

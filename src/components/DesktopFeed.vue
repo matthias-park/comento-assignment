@@ -7,12 +7,24 @@
       <div class="thirteen wide column">
         <div class="filters">
           <div class="order">
-            <p @click="updateOrd('asc')">
-              <i class="mini circle icon" :class="getOrd === 'asc' ? 'green' : ''"></i>
+            <p
+              @click="updateOrd('asc')"
+              :class="getOrd === 'asc' ? 'selectedOrd' : 'ord'"
+            >
+              <i
+                class="mini circle icon"
+                :class="getOrd === 'asc' ? 'green' : ''"
+              ></i>
               오름차순
             </p>
-            <p @click="updateOrd('desc')">
-              <i class="mini circle icon" :class="getOrd === 'desc' ? 'green' : ''"></i>
+            <p
+              @click="updateOrd('desc')"
+              :class="getOrd === 'desc' ? 'selectedOrd' : 'ord'"
+            >
+              <i
+                class="mini circle icon"
+                :class="getOrd === 'desc' ? 'green' : ''"
+              ></i>
               내림차순
             </p>
           </div>
@@ -25,8 +37,11 @@
             />
           </div>
         </div>
-        <div v-for="(feed, feedIndex) in allFeeds.data" :key="feed.id + Math.random()">
-          <router-link :to="`/desktopFeed/detail/${feed.id}`">
+        <div
+          v-for="(feed, feedIndex) in allFeeds.data"
+          :key="feed.id + Math.random()"
+        >
+          <router-link :to="`/feed/detail/${feed.id}`">
             <div class="ui feed-box">
               <div class="ui container">
                 <div class="feed-header">
@@ -43,12 +58,18 @@
 
                   <h3>
                     {{
-                    feed.title.length > 90
-                    ? feed.title.slice(0, 90) + "..."
-                    : feed.title
+                      feed.title.length > 90
+                        ? feed.title.slice(0, 90) + "..."
+                        : feed.title
                     }}
                   </h3>
-                  <p>{{ feed.contents.length > 70 ? feed.contents.slice(0,70) + '...' : feed.contents }}</p>
+                  <p>
+                    {{
+                      feed.contents.length > 70
+                        ? feed.contents.slice(0, 70) + "..."
+                        : feed.contents
+                    }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -68,11 +89,21 @@
                     <img :src="IMG_ROOT + ad.img" />
                   </div>
                   <div class="content">
-                    <h3
-                      class="header"
-                    >{{ ad.title.length > 120 ? ad.title.slice(0,120) + '...' : ad.title }}</h3>
+                    <h3 class="header">
+                      {{
+                        ad.title.length > 120
+                          ? ad.title.slice(0, 120) + "..."
+                          : ad.title
+                      }}
+                    </h3>
                     <div class="description">
-                      <p>{{ ad.contents.length > 250 ? ad.contents.slice(0,250) + '...' : ad.contents }}</p>
+                      <p>
+                        {{
+                          ad.contents.length > 250
+                            ? ad.contents.slice(0, 250) + "..."
+                            : ad.contents
+                        }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -149,6 +180,7 @@ export default {
 
 <style scoped>
 div.feed-header {
+  color: #adb5bd;
   display: flex;
   justify-content: space-between;
 }
@@ -163,7 +195,6 @@ div.order {
   width: 150px;
   display: flex;
   justify-content: space-between;
-
 }
 
 .order p {
@@ -200,5 +231,17 @@ span.space {
   padding: 1em;
   border: 1px solid #e1e4e7;
   border-radius: 5px;
+}
+
+.filter {
+  z-index: 10;
+}
+
+.ord {
+  color: #adb5bd;
+}
+
+.selectedOrd {
+  color: black;
 }
 </style>

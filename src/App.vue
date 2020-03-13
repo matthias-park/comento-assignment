@@ -60,9 +60,7 @@ div {
     display: flex;
   }
 }
-
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
+.icon {
+  cursor: pointer;
 }
 </style>

@@ -1,60 +1,45 @@
 <template>
-  <div class="ui container">
+  <div class="ui">
     <div class="nav">
       <i class="icon big angle left" @click="goToBack"></i>
     </div>
     <div class="spacer"></div>
     <div class="main-feed">
       <div class="feed-header" id="main-feed-header">
-        <h3>{{ trimmedTitle}}</h3>
+        <h3>{{ getDetail.title }}</h3>
       </div>
       <div class="ui hidden divider"></div>
       <div class="feed-contents">
-        <p>{{trimmedContents }}</p>
+        <p>{{ getDetail.contents }}</p>
       </div>
       <div class="ui hidden divider"></div>
-      <div class="ui grey header feed-timestamp" id="main-feed-timestamp">
-        <h4>{{ trimmedTimestamp }}</h4>
+      <div class="feed-timestamp" id="main-feed-timestamp">
+        <p>{{ "created_at(" + getDetail.created_at.slice(0, 10) + ")" }}</p>
       </div>
     </div>
 
-    <h4 class="ui grey header">
+    <h4 class="ui grey header feed-count">
       답변:
-      <span class="coment-number">2</span>
+      <span class="coment-number">{{ getDetail.reply.length }}</span>
     </h4>
 
-    <div>
-      <div class="ui divider"></div>
-      <h4 class="ui grey header reply">reply_user_name</h4>
-      <div class="ui divider"></div>
-      <div class="feed-header">
-        <h3>{{ trimmedTitle }}</h3>
+    <div v-for="reply in getDetail.reply" :key="reply.id">
+      <div class="feed-reply">
+        <div class="ui divider"></div>
+        <h4 class="ui grey header reply">{{ reply.user.name }}</h4>
+        <div class="ui divider"></div>
+        <div class="feed-header">
+          <h3>{{ reply.title }}</h3>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="feed-contents">
+          <p>{{ reply.contents }}</p>
+        </div>
+        <div class="feed-timestamp">
+          <p>{{ "created_at(" + reply.created_at.slice(0, 10) + ")" }}</p>
+        </div>
+        <div class="ui divider"></div>
       </div>
-      <div class="ui hidden divider"></div>
-      <div class="feed-contents">
-        <p>{{ trimmedContents }}</p>
-      </div>
-      <div class="ui hidden divider"></div>
-      <div class="ui grey header feed-timestamp">
-        <h4>{{ trimmedTimestamp }}</h4>
-      </div>
-    </div>
-    <div>
-      <div class="ui divider"></div>
-      <h4 class="ui grey header reply">reply_user_name</h4>
-      <div class="ui divider"></div>
-      <div class="feed-header">
-        <h3>{{ trimmedTitle }}</h3>
-      </div>
-      <div class="ui hidden divider"></div>
-      <div class="feed-contents">
-        <p>{{ trimmedContents }}</p>
-      </div>
-      <div class="ui hidden divider"></div>
-      <div class="ui grey header feed-timestamp">
-        <h4>{{ trimmedTimestamp }}</h4>
-      </div>
-      <div class="ui divider"></div>
     </div>
   </div>
 </template>
@@ -72,29 +57,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getFeed"]),
-    trimmedTitle() {
-      return this.getFeed.title.length > 90
-        ? this.getFeed.title.slice(0, 90) + "..."
-        : this.getFeed.title;
-    },
-    trimmedContents() {
-      return this.getFeed.contents.length > 90
-        ? this.getFeed.contents.slice(0, 90) + "..."
-        : this.getFeed.contents;
-    },
-    trimmedTimestamp() {
-      return "created_at(" + this.getFeed.created_at.slice(0, 10) + ")";
-    }
+    ...mapGetters(["getDetail"])
   },
   methods: {
-    ...mapActions(["selectedFeed"]),
+    ...mapActions(["fetchDetail"]),
     goToBack() {
       router.push("/");
     }
   },
-  created() {
-    this.selectedFeed(this.$route.params.id);
+  async created() {
+    await this.fetchDetail(this.$route.params.id);
   }
 };
 </script>
@@ -103,9 +75,11 @@ export default {
 div.nav {
   padding-top: 0.5em;
   height: 45px;
+  background-color: white;
 }
 div.main-feed {
-  padding-top: 1em;
+  padding: 1em;
+  background-color: white;
 }
 div#main-feed-header {
   border-top: 1px solid #00c854;
@@ -114,7 +88,7 @@ div#main-feed-header {
 
 div#main-feed-timestamp {
   border-bottom: 1px solid #00c854;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
 }
 
 span.coment-number {
@@ -130,5 +104,18 @@ span.coment-number {
 
 .feed-timestamp {
   height: 2em;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: #adb5bd;
+}
+
+.ui {
+  background-color: white;
+  overflow-x: hidden;
+}
+
+.feed-count,
+.feed-reply {
+  padding: 0 1em 0.1em 1em;
 }
 </style>

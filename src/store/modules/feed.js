@@ -7,7 +7,8 @@ const state = {
   category: [],
   limit: 8,
   ads: [],
-  feed: {}
+  feed: {},
+  detail: {}
 };
 
 const getters = {
@@ -17,7 +18,7 @@ const getters = {
   getOrd: state => state.ord,
   getCategory: state => state.category,
   getLimit: state => state.limit,
-  getFeed: state => state.feed
+  getDetail: state => state.detail
 };
 
 const actions = {
@@ -66,11 +67,9 @@ const actions = {
   updateCategory({ commit }, payload) {
     commit("updateCategory", payload);
   },
-  selectedFeed({ commit }, payload) {
-    const feed = state.feeds.data.find(el => {
-      return el.id === +payload;
-    });
-    commit("selectedFeed", feed);
+  async fetchDetail({ commit }, payload) {
+    const response = await api.getDetail(payload);
+    commit("fetchDetail", response.data.info);
   }
 };
 
@@ -103,8 +102,8 @@ const mutations = {
   updateCategory: (state, category) => {
     state.category = category;
   },
-  selectedFeed: (state, feed) => {
-    state.feed = feed;
+  fetchDetail: (state, detail) => {
+    state.detail = detail;
   }
 };
 

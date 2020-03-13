@@ -9,7 +9,14 @@
       >
         <header class="modal-header">
           <p name="header" id="modalTitle">필터</p>
-          <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
+          <button
+            type="button"
+            class="btn-close"
+            @click="close"
+            aria-label="Close modal"
+          >
+            x
+          </button>
         </header>
         <section class="modal-body" id="modalDescription">
           <slot name="body">
@@ -28,7 +35,13 @@
         </section>
         <footer class="modal-footer">
           <slot name="footer">
-            <button class="ui green button" @click="save" aria-label="Close modal">저장하기</button>
+            <button
+              class="ui green button"
+              @click="save"
+              aria-label="Close modal"
+            >
+              저장하기
+            </button>
           </slot>
         </footer>
       </div>
@@ -45,7 +58,6 @@ export default {
   data() {
     return {
       active: false,
-      category: []
     };
   },
   computed: {
@@ -57,12 +69,12 @@ export default {
   methods: {
     ...mapActions(["fetchCategory", "fetchFeeds"]),
     save() {
-      this.$emit("categorySelect", this.category);
+      this.$emit("categorySelect", this.getCategory);
       this.$emit("close");
     },
     selectCategory(item) {
-      const index = this.category.indexOf(item);
-      this.category[index].checked = !this.category[index].checked;
+      const index = this.getCategory.indexOf(item);
+      this.getCategory[index].checked = !this.getCategory[index].checked;
     },
     close() {
       this.$emit("close");
@@ -70,7 +82,6 @@ export default {
   },
   async created() {
     await this.fetchCategory();
-    this.category = this.getCategory;
   }
 };
 </script>
@@ -138,5 +149,15 @@ export default {
   cursor: pointer;
   color: #adb5bd;
   background: transparent;
+}
+
+.modal-fade-enter,
+.modal-fade-leave-active {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 </style>

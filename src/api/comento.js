@@ -6,7 +6,7 @@ const ROOT_URL =
 const FEED_LIST = "/api/list";
 const CATEGORY_LIST = '/api/category';
 const ADS_LIST = '/api/ads';
-// const FEED_DETAIL = '/api/view'
+const FEED_DETAIL = '/api/view'
 
 export default {
   getFeeds(page, ord, category, limit) {
@@ -23,6 +23,11 @@ export default {
   getAds(page, limit) {
     return axios.get(`${ROOT_URL}${ADS_LIST}`, {
       params: {page, limit}
+    })
+  },
+  getDetail(id) {
+    return axios.get(`${ROOT_URL}${FEED_DETAIL}`, {
+      params: {id}
     })
   }
 };
